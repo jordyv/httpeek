@@ -9,9 +9,10 @@ and HTML `title`.
 ```
 
 Usage of ./httpeek:
-  -f, --file string    Input file to use instead of stdin
-  -q, --query string   XPath query to lookup in HTML output (default "//title")
-  -s, --silent         Only output actual results
+  -f, --file string        Input file to use instead of stdin
+  -q, --query string       XPath query to lookup in HTML output (default "//title")
+  -s, --silent             Only output actual results
+  -t, --timeout duration   Timeout for HTTP requests (default 3s)
 
 ```
 

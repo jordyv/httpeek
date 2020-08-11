@@ -12,14 +12,16 @@ import (
 	"net/url"
 	"os"
 	"strings"
+	"time"
 )
 
 var (
 	filePath   string
 	silent     bool
 	xpathQuery string
+	timeout    time.Duration
 
-	client = http.DefaultClient
+	client *http.Client
 
 	output = os.Stdout
 	errOut = os.Stderr
@@ -31,16 +33,24 @@ type outputLine struct {
 	Result     string `json:"result"`
 }
 
+func initHTTPClient() {
+	client = http.DefaultClient
+	client.Timeout = timeout
+}
+
 func main() {
 	flag.StringVarP(&filePath, "file", "f", "", "Input file to use instead of stdin")
 	flag.StringVarP(&xpathQuery, "query", "q", "//title", "XPath query to lookup in HTML output")
 	flag.BoolVarP(&silent, "silent", "s", false, "Only output actual results")
+	flag.DurationVarP(&timeout, "timeout", "t", time.Second*3, "Timeout for HTTP requests")
 	flag.ErrHelp = errors.New("")
 	flag.Parse()
 
 	if silent {
 		errOut, _ = os.Open(os.DevNull)
 	}
+
+	initHTTPClient()
 
 	var inputFile *os.File
 	var err error
