@@ -35,3 +35,15 @@ Or just as one liner combined with [jq](https://github.com/stedolan/jq) to get t
 ```
 $ cat subdomains.txt | httprobe | httpeek | jq '. | select(.status_code == 200) | .result'
 ```
+
+### Custom XPath query
+
+By default `httpeek` will fetch the HTML title element but you can specify your own XPath query.
+`httpeed` will only return the inner text of the first result of the query (for now).
+
+```
+$ echo "https://github.com/jordyv/httpeek" | httpeek -q '//div[1]//h1'
+{"url":"https://github.com/jordyv/httpeek","status_code":200,"result":"\n    \n  \n    jordyv\n  \n  /\n  \n    httpeek\n  \n  \n"}
+```
+
+`httpeek` uses the [antchfx/htmlquery](https://github.com/antchfx/htmlquery) library.
