@@ -4,6 +4,13 @@ With `httpeek` you can quickly do HTTP lookups during your recon phase.
 You can pipe your list with URLs into `httpeek` and it will output the status code
 and HTML `title`. 
 
+## Installation
+
+```
+go get -u github.com/jordyv/httpeek
+```
+or install one of the precompiled binaries from the releases.
+
 ## Usage
 
 ```
